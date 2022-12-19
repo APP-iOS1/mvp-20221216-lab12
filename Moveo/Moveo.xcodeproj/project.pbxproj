@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		186641CE29502AD500AFC379 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186641CD29502AD500AFC379 /* SignupView.swift */; };
-		186641D029502F3400AFC379 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186641CF29502F3400AFC379 /* Model.swift */; };
+		186641D2295054A700AFC379 /* LoginSignupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186641D1295054A600AFC379 /* LoginSignupStore.swift */; };
 		5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C399294CCA55004D241C /* MoveoApp.swift */; };
 		5280C39C294CCA55004D241C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C39B294CCA55004D241C /* ContentView.swift */; };
 		5280C39E294CCA56004D241C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5280C39D294CCA56004D241C /* Assets.xcassets */; };
@@ -23,7 +23,6 @@
 		52DAB108295021F1005937DB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB107295021F1005937DB /* FirebaseFirestore */; };
 		52DAB10A295021F1005937DB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB109295021F1005937DB /* FirebaseFirestoreSwift */; };
 		52DAB10C295021F1005937DB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB10B295021F1005937DB /* FirebaseStorage */; };
-		52DAB10E29502351005937DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52DAB10D29502351005937DB /* GoogleService-Info.plist */; };
 		52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF2294F3F7000F94AC1 /* ViewStore.swift */; };
 		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
@@ -31,7 +30,7 @@
 
 /* Begin PBXFileReference section */
 		186641CD29502AD500AFC379 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		186641CF29502F3400AFC379 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		186641D1295054A600AFC379 /* LoginSignupStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupStore.swift; sourceTree = "<group>"; };
 		5280C396294CCA55004D241C /* Moveo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moveo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5280C399294CCA55004D241C /* MoveoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveoApp.swift; sourceTree = "<group>"; };
 		5280C39B294CCA55004D241C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,7 +42,6 @@
 		529C2F9E294DD02A00366BCB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		529C2FA0294DD03600366BCB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		529C2FA4294E0BCC00366BCB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		52DAB10D29502351005937DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52F42BF2294F3F7000F94AC1 /* ViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStore.swift; sourceTree = "<group>"; };
 		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 			children = (
 				5280C399294CCA55004D241C /* MoveoApp.swift */,
 				529C2F94294DC9F600366BCB /* Views */,
-				529C2F95294DCA0500366BCB /* Models */,
 				529C2F96294DCA0F00366BCB /* ViewModels */,
 				5280C39D294CCA56004D241C /* Assets.xcassets */,
 				5280C39F294CCA56004D241C /* Preview Content */,
@@ -118,19 +115,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		529C2F95294DCA0500366BCB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				186641CF29502F3400AFC379 /* Model.swift */,
-				52DAB10D29502351005937DB /* GoogleService-Info.plist */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		529C2F96294DCA0F00366BCB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				52F42BF2294F3F7000F94AC1 /* ViewStore.swift */,
+				186641D1295054A600AFC379 /* LoginSignupStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -204,7 +193,6 @@
 			files = (
 				5280C3A1294CCA56004D241C /* Preview Assets.xcassets in Resources */,
 				5280C39E294CCA56004D241C /* Assets.xcassets in Resources */,
-				52DAB10E29502351005937DB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,12 +209,12 @@
 				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
-				186641D029502F3400AFC379 /* Model.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,
 				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
 				5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */,
+				186641D2295054A700AFC379 /* LoginSignupStore.swift in Sources */,
 				529C2F9F294DD02A00366BCB /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
