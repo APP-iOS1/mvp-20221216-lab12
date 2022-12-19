@@ -17,13 +17,13 @@ struct SignupView: View {
             VStack(spacing: 15) {
                 Spacer()
                 
+                TextField("Name", text: $loginSignupStore.name)
+                    .textFieldStyle(.roundedBorder)
+                
                 TextField("Email", text: $loginSignupStore.signUpEmail)
                     .textFieldStyle(.roundedBorder)
                 
                 SecureField("Password", text: $loginSignupStore.signUpPw)
-                    .textFieldStyle(.roundedBorder)
-                
-                TextField("Name", text: $loginSignupStore.name)
                     .textFieldStyle(.roundedBorder)
                 
                 Spacer()
