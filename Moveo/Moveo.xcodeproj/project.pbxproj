@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		186641CE29502AD500AFC379 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186641CD29502AD500AFC379 /* SignupView.swift */; };
+		186641D029502F3400AFC379 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186641CF29502F3400AFC379 /* Model.swift */; };
 		5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C399294CCA55004D241C /* MoveoApp.swift */; };
 		5280C39C294CCA55004D241C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C39B294CCA55004D241C /* ContentView.swift */; };
 		5280C39E294CCA56004D241C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5280C39D294CCA56004D241C /* Assets.xcassets */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		186641CD29502AD500AFC379 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		186641CF29502F3400AFC379 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		5280C396294CCA55004D241C /* Moveo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moveo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5280C399294CCA55004D241C /* MoveoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveoApp.swift; sourceTree = "<group>"; };
 		5280C39B294CCA55004D241C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */,
 				5280C3A7294CCA70004D241C /* LodingView.swift */,
 				529C2F97294DCA3E00366BCB /* LoginView.swift */,
+				186641CD29502AD500AFC379 /* SignupView.swift */,
 				529C2FA4294E0BCC00366BCB /* MainView.swift */,
 				529C2F9C294DCB2200366BCB /* FeedView.swift */,
 				529C2F9E294DD02A00366BCB /* SearchView.swift */,
@@ -116,6 +121,7 @@
 		529C2F95294DCA0500366BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				186641CF29502F3400AFC379 /* Model.swift */,
 				52DAB10D29502351005937DB /* GoogleService-Info.plist */,
 			);
 			path = Models;
@@ -209,11 +215,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186641CE29502AD500AFC379 /* SignupView.swift in Sources */,
 				529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */,
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
 				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
+				186641D029502F3400AFC379 /* Model.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,

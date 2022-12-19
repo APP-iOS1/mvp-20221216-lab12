@@ -20,6 +20,9 @@ struct ProfileView: View {
     @State var bookToggle: Bool = false
     @State var menuXAxis: Double = -90
     
+    @State private var selectedMenu: String = ""
+    var selectedMenuArr = ["삭제하기"]
+    
     var columns : [GridItem] = Array(repeating: GridItem(.flexible(), spacing: nil, alignment: nil), count: 2)
     
     var body: some View {
@@ -37,7 +40,7 @@ struct ProfileView: View {
                         Spacer()
                         
                         NavigationLink(destination: {
-                        
+                            
                         }, label: {
                             Image(systemName: "tray.full")
                                 .foregroundColor(.black)
@@ -45,10 +48,16 @@ struct ProfileView: View {
                                 .bold()
                         })
                         
-                        Image(systemName: "list.bullet")
-                            .font(.title2)
-                            .bold()
+                        Picker("Choose a menu", selection: $selectedMenu) {
+                            ForEach(selectedMenuArr, id: \.self) {
+                                Text($0)
+                            }
+                        }
+//                        Image(systemName: "list.bullet")
+//                            .font(.title2)
+//                            .bold()
                     }
+                    .pickerStyle(.menu)
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
                     
