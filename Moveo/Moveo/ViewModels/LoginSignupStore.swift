@@ -26,6 +26,7 @@ class LoginSignupStore: ObservableObject {
     @Published var profileImageUrlString: String = "test"
     @Published var selectedCategories : [String] = []
     @Published var bookmark : [String] = []
+    @Published var description : String = ""
     // 프로필
     @Published var profileImageUrl: UIImage?
     //    @Published var currentUserInfo: [MyUser] = []
@@ -111,7 +112,7 @@ class LoginSignupStore: ObservableObject {
                 
                 print(uid)
                 // model을 쓰면 쉽게 구조화할 수 있음
-                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories, "bookmark" : self.bookmark] as [String : Any]
+                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories, "bookmark" : self.bookmark, "description" : self.description] as [String : Any]
                 
                 Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
                     if let error = error {
@@ -143,12 +144,14 @@ class LoginSignupStore: ObservableObject {
                         let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
                         let category : [String] = docData["category"] as? [String] ?? []
                         let bookmark : [String] = docData["bookmark"] as? [String] ?? []
-                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark)
+                        let description : String = docData["description"] as? String ?? ""
+                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
                         
                         self.users.append(user)
                     }
                 }
             }
+        currentUserDataInput()
     }
     
     func profileImageToStorage(selectedPost: Post) {

@@ -11,9 +11,6 @@ struct LoginView: View {
     @EnvironmentObject var userStore : LoginSignupStore
     @EnvironmentObject var viewStore: ViewStore
     @State private var dismissedToRoot : Bool = false
-    // TODO: - LoginStore 만들고 난 후 삭제할 변수들
-    @State private var id: String = ""
-    @State private var password: String = ""
     @State private var aniOpacity: CGFloat = 0
     
     var body: some View {
@@ -27,12 +24,12 @@ struct LoginView: View {
                 
                 VStack {
                     Group {
-                        TextField("Email", text: $id)
+                        TextField("Email", text: $userStore.email)
                             .keyboardType(.emailAddress)
                             .autocorrectionDisabled()
                             .textInputAutocapitalization(.never)
                         
-                        SecureField("Password", text: $password)
+                        SecureField("Password", text: $userStore.password)
                     }
                     .padding(10)
                     .background(Color.pointGray)

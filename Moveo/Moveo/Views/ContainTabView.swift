@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContainTabView: View {
     @State private var tabSelection = 1
-    @EnvironmentObject var userStore : LoginSignupStore
+    @EnvironmentObject var loginSignupStore : LoginSignupStore
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationView {
@@ -41,7 +41,7 @@ struct ContainTabView: View {
             }.tag(4)
         }
         .onAppear {
-            userStore.currentUserDataInput()
+            loginSignupStore.fetchUser()
         }
     }
 }

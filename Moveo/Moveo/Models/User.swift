@@ -15,6 +15,7 @@ struct User : Codable, Identifiable {
     var profileImageUrl : String
     var category : [String]
     var bookmark : [String]
+    var description : String
 }
 
 //struct Category : Codable, Identifiable {

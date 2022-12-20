@@ -14,19 +14,27 @@ extension Color{
 }
 
 struct ContentView: View {
-    @EnvironmentObject var viewStore: ViewStore
+    @EnvironmentObject var loginSignStore: LoginSignupStore
     var body: some View {
-        if viewStore.currentLoginCheckViewChanger {
-            LodingAndLoginView()
-        } else {
-            ContainTabView()
+        VStack {
+            if loginSignStore.currentUser != nil {
+                ContainTabView()
+            } else {
+                LodingAndLoginView()
+            }
         }
+//        .onAppear {
+//            loginSignStore.fetchUser()
+//        }
     }
+    
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(ViewStore())
+            .environmentObject(LoginSignupStore())
     }
 }
