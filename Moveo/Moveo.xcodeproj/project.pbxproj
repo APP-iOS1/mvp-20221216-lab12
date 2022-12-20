@@ -31,6 +31,7 @@
 		52DAB11F295044D1005937DB /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB11E295044D1005937DB /* SDWebImageSwiftUI */; };
 		52E9DDFC295143B30093E4AE /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DDFB295143B30093E4AE /* NotificationManager.swift */; };
 		52E9DDFF295144550093E4AE /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DDFE295144550093E4AE /* LocalNotification.swift */; };
+		52E9DE1E295172FA0093E4AE /* AddScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DE1D295172FA0093E4AE /* AddScheduleView.swift */; };
 		52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF2294F3F7000F94AC1 /* ViewStore.swift */; };
 		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
@@ -67,6 +68,7 @@
 		52DAB1192950341F005937DB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		52E9DDFB295143B30093E4AE /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		52E9DDFE295144550093E4AE /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
+		52E9DE1D295172FA0093E4AE /* AddScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleView.swift; sourceTree = "<group>"; };
 		52F42BF2294F3F7000F94AC1 /* ViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStore.swift; sourceTree = "<group>"; };
 		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				F259967529505AFC004E5AD1 /* CustomDatePicker.swift */,
 				F259967629505AFC004E5AD1 /* Home.swift */,
 				F259967729505AFC004E5AD1 /* ScheduleToggle.swift */,
+				52E9DE1D295172FA0093E4AE /* AddScheduleView.swift */,
 			);
 			path = CalanderView;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				F259967929505AFC004E5AD1 /* CustomDatePicker.swift in Sources */,
 				F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */,
 				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
+				52E9DE1E295172FA0093E4AE /* AddScheduleView.swift in Sources */,
 				F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */,
 				5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */,
 				F259967229505AE2004E5AD1 /* Task.swift in Sources */,

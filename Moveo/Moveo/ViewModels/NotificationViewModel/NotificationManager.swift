@@ -70,21 +70,28 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
         }
     }
     
+    func createLocalNotification(scheduleDate: Date, title: String) async {
+        let dateComponets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: scheduleDate)
+        let localNotification = LocalNotification(identifier: UUID().uuidString,
+                                                  title: title,
+                                                  dateComponets: dateComponets,
+                                                  repeats: false)
+        
+        await schedule(localNotification: localNotification)
+    }
     
     // --------- 선언한 사용자 입력값(구조체)를 1.Content로 처리하고 / 2. Trigger로 설정하고 / 3. Request를 통해 Content + Trigger를 처리하고 / 4. Center 저장소로 이동
     func schedule(localNotification: LocalNotification) async {
-        
+        print(localNotification.title)
         // 1. UNMutableNotificationContent에 내장되어 있는 기능활용 -> [Content]
         let content = UNMutableNotificationContent()
         content.title = localNotification.title
-//        content.body = localNotification.body
         content.sound = .default
         
         if let subtitle = localNotification.subtitle {
             content.subtitle = subtitle
         }
-        
-        
+
         // scheduleType이 time, 즉 trigger가 timeInterval일 경우
         if localNotification.scheduleType == .time {
             guard let timeInterval = localNotification.timeInterval else { return }
@@ -99,14 +106,9 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponet, repeats: localNotification.repeats)
             let request = UNNotificationRequest(identifier: localNotification.identifier, content: content, trigger: trigger)
             try? await notificationCenter.add(request)
+            print("localNoti.sheduleType 1")
         }
         
-        // 3. 내용(Content) + 사용자 설정(Trigger)을 모아 일괄로 할당받음
-        // identifier는 일종의 식별자로, 개별 알림의 임의 id 값을 부여함
-//        let request = UNNotificationRequest(identifier: localNotification.identifier, content: content, trigger: trigger)
-        
-        // 4. notificationCenter, 즉 request(content + trigger) -> center 저장소로 이동!
-//        try? await notificationCenter.add(request)
         await getPendingRequests()
     }
     
