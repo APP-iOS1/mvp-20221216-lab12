@@ -91,8 +91,8 @@ struct ProfileView: View {
                                 HStack{
                                     ForEach(loginSignupStore.currentUserData?.category ?? [], id: \.self) { category in
                                         Text(category)
-                                            .padding()
-                                            .font(.system(size: 25))
+                                            .padding(5)
+                                            .font(.system(size: 10))
                                             .foregroundColor(.white)
                                             .background { Color.mainColor }
                                             .cornerRadius(50)
@@ -217,7 +217,9 @@ struct ProfileView: View {
                 }
             }
         }
-        
+        .onAppear {
+            loginSignupStore.currentUserDataInput()
+        }
     }
 }
 

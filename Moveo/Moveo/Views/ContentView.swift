@@ -14,22 +14,16 @@ extension Color{
 }
 
 struct ContentView: View {
-    @EnvironmentObject var loginSignStore: LoginSignupStore
+    @EnvironmentObject var loginSignupStore: LoginSignupStore
     var body: some View {
         VStack {
-            if loginSignStore.currentUser != nil {
+            if loginSignupStore.currentUser != nil {
                 ContainTabView()
             } else {
                 LodingAndLoginView()
             }
         }
-//        .onAppear {
-//            loginSignStore.fetchUser()
-//        }
     }
-    
-    
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

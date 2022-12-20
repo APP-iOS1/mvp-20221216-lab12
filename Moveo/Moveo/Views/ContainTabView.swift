@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import FirebaseAuth
 struct ContainTabView: View {
     @State private var tabSelection = 1
     @EnvironmentObject var loginSignupStore : LoginSignupStore
@@ -40,10 +40,9 @@ struct ContainTabView: View {
                 Text("프로필")
             }.tag(4)
         }
-        .onAppear {
-            loginSignupStore.fetchUser()
-        }
+
     }
+        
 }
 
 struct ContainTabView_Previews: PreviewProvider {

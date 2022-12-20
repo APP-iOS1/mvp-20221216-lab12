@@ -56,6 +56,7 @@ class LoginSignupStore: ObservableObject {
             }
             print("Successfully logged in as user: \(result?.user.uid ?? "")")
             self.currentUser = result?.user
+            
         }
         self.fetchUser()
     }
@@ -128,6 +129,7 @@ class LoginSignupStore: ObservableObject {
     }
     
     func fetchUser() {
+            
         Firestore.firestore().collection("users")
             .getDocuments { (snapshot, error) in
                 self.users.removeAll()
@@ -202,13 +204,18 @@ class LoginSignupStore: ObservableObject {
     }
     
     func currentUserDataInput() {
-            let uid: String = currentUser?.uid ?? ""
-            
-            if !users.isEmpty {
-                let myUser: User = users.filter{ $0.id == uid }[0]
-                currentUserData = myUser
-            }
-        }    //
+        let uid: String = currentUser?.uid ?? ""
+        
+        if !users.isEmpty {
+//            let myUser: User? = nil
+            for user in users {
+                    if user.id == uid {
+                        currentUserData = user
+                        break
+                    }
+                }
+        }
+    }    //
     //
     //    func findPostNickname(selectedPost : Post) -> String {
     //        let uid: String = selectedPost.currentUser
