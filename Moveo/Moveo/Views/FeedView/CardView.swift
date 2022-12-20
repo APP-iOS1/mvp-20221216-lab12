@@ -13,9 +13,10 @@ struct CardView: View {
     @EnvironmentObject var postStore: PostStore
     
     @State private var likeToggle = true
-
     @State private var markToggle = true
     
+    // Modal
+    @State private var showModal : Bool = false
     
     var post: Post
     
@@ -110,15 +111,22 @@ struct CardView: View {
                         
                     }
                     HStack {
-                        NavigationLink {
-                            //DetailView로 이동
+                        Button {
+                            self.showModal = true
+                            
                         } label: {
                             Image(systemName: "message.fill")
                                 .foregroundColor(.mainColor)
-                        }
+                            
                             Text("59")
                                 .fontWeight(.light)
                                 .font(.caption2)
+                        }
+                        .sheet(isPresented: self.$showModal) {
+                            CommentView(comment : Comment(id: "fdasfdsafdsafdas", nickName: "위고 요리스", profileImage: "https://firebasestorage.googleapis.com:443/v0/b/moveo-2f0df.appspot.com/o/5786CE4C-7120-4176-8DDF-809E67381A1D?alt=media&token=6b27711f-633a-4fd3-b956-7f0056d5a6e1", commentText: "운동합시다", commentDate: "2022-12-25 11:11:11"))
+                                .presentationDetents([.fraction(0.8)])
+                        }
+                        
                         //TO DO : comment의 사용자 id를 카운트 해서 반영
 
                     }
@@ -126,6 +134,8 @@ struct CardView: View {
                 }
                 .padding(.leading, 20)
                 
+                Divider()
+                    .padding()
             }
         }
     }

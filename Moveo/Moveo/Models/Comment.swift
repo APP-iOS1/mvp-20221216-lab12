@@ -12,7 +12,7 @@ struct Comment: Codable, Identifiable {
     var id: String
     
     // MARK: 댓글 단 사람의 uid, nickName, profileImage 값을 넣어줘야 함
-    var uid: String
+    // var uid: String
     var nickName: String
     var profileImage: String
     
