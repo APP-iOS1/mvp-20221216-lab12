@@ -12,9 +12,10 @@ import SDWebImageSwiftUI
 struct CardView: View {
     @EnvironmentObject var postStore: PostStore
     
-    
-    @State private var markToggle1 = true
+    @State private var likeToggle = true
 
+    @State private var markToggle = true
+    
     
     var post: Post
     
@@ -29,10 +30,11 @@ struct CardView: View {
                             .overlay(Circle().stroke(Color.gray, lineWidth: 0.5))
                             .scaledToFit()
                             .frame(width: 75)
-
                         
-                        // 닉네임, 시간 레이아웃 수정
+                        
                         VStack(alignment: .leading) {
+                            
+                            //TO DO: nickname firestroe로부터 불러와야하는 부분
                             Text("wego_gym")
                                 .font(.body)
                                 .fontWeight(.medium)
@@ -41,15 +43,21 @@ struct CardView: View {
                                 .font(.caption2)
                                 .fontWeight(.light)
                                 .foregroundColor(.gray)
-                            //                    Text("4o min")
+                            //  Text("4o min")
+                            // TO DO : 후순위 - 시간 계산해서 몆 분전에 업로드 된 게시물인지 표시
                         }
                         .offset(x:-10)
                         Spacer()
                         
                         Button {
-                            markToggle1.toggle()
+                            markToggle.toggle()
+                            
+                             
+                             //TO DO : 북마크 클릭시 액션
+                             
+                             
                         } label: {
-                            if markToggle1 {
+                            if markToggle {
                                 Image(systemName: "bookmark")
                                     .foregroundColor(Color.gray)
                             } else {
@@ -57,8 +65,9 @@ struct CardView: View {
                                     .foregroundColor(Color.mainColor)
                             }
                         }
-                        .padding(.trailing)
+                        .padding(.trailing, 20)
                     }
+                    .padding(.bottom, 5)
                 }
                 
                 WebImage(url: URL(string: post.postImageUrl))
@@ -68,14 +77,55 @@ struct CardView: View {
                     .clipped()
                     .cornerRadius(10)
                 
-                ZStack {
+                VStack(alignment: .leading){
                     Text(post.bodyText)
-                        .zIndex(1)
+                        .frame(width: 350, alignment: .leading)
+
+                    //TO DO : 글자가 길어질 시 '더보기' 하면 전문이 보이도록 하는 기능 구현
                     
-                    Rectangle()
-                        .frame(width: 330, height: 80)
-                        .foregroundColor(.white)
                 }
+                .frame(width: 360, alignment: .leading)
+                .padding(.top, 5)
+                .padding(.leading, 10)
+                .padding(.bottom, 10)
+
+                
+                HStack{
+                    HStack {
+                        Button {
+                            likeToggle.toggle()
+                        } label: {
+                            if likeToggle {
+                                Image(systemName: "heart")
+                                    .foregroundColor(Color.black)
+                            } else {
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(Color.red)
+                            }
+                        }
+                        Text("1.1k")
+                            .font(.caption2)
+                            .fontWeight(.light)
+                        //TO DO : 좋아요를 누른 사용자 id를 카운트 해서 반영
+                        
+                    }
+                    HStack {
+                        NavigationLink {
+                            //DetailView로 이동
+                        } label: {
+                            Image(systemName: "message.fill")
+                                .foregroundColor(.mainColor)
+                        }
+                            Text("59")
+                                .fontWeight(.light)
+                                .font(.caption2)
+                        //TO DO : comment의 사용자 id를 카운트 해서 반영
+
+                    }
+                    Spacer()
+                }
+                .padding(.leading, 20)
+                
             }
         }
     }

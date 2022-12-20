@@ -40,9 +40,13 @@ struct FeedView: View {
                                 .foregroundColor(.mainColor)
                         }
                     }
+                    .padding(.horizontal, 15)
+                    .padding(.bottom, 10)
+
                     
                     Divider()
-                    
+                        .padding(.bottom, 15)
+
                     
                     
                     // TODO: - 추후 피드들 넣을 스크롤뷰, 현재 카드형태로 넣을 예정
@@ -54,7 +58,7 @@ struct FeedView: View {
                         //.shadow(radius: 5)
                     })
                 }
-                .padding(.horizontal, 15)
+                //.padding(.horizontal, 15)
                 
             }
         }
