@@ -11,7 +11,8 @@ struct AddSchedule: View {
     @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject var sampleTasks: SampleTask
-//    @EnvironmentObject var schedule: Schedule
+    @EnvironmentObject var inManager: NotificationManager
+    //    @EnvironmentObject var schedule: Schedule
     
     @State private var todoTitle: String = ""
     @State private var scheduledDay: Date = Date()
@@ -35,8 +36,18 @@ struct AddSchedule: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing, content: {
                     Button {
+                        Task {
+                            let dateComponets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: scheduledDay)
+                            var localNotification = LocalNotification(identifier: UUID().uuidString,
+                                                                      title: todoTitle,
+                                                                      dateComponets: dateComponets,
+                                                                      repeats: false)
+                            
+                            await inManager.schedule(localNotification: localNotification)
+                        }
+                        
+                        // 근섭님 코드
                         addScheduleToTasks(time: scheduledTime)
-//                        schedule.scheduleIsEmpty = false
                         dismiss()
                     } label: {
                         Text("추가")
@@ -45,7 +56,7 @@ struct AddSchedule: View {
             }
         }
     }
-
+    
     func addScheduleToTasks(time: Date) {
         sampleTasks.sortedTasks.append(contentsOf: [TaskMetaData(task: [Task(title: todoTitle)], taskDate: scheduledDay, taskTime: time)]
         )
@@ -56,6 +67,7 @@ struct AddSchedule_Previews: PreviewProvider {
     static var previews: some View {
         AddSchedule()
             .environmentObject(SampleTask())
-//            .environmentObject(Schedule())
+            .environmentObject(NotificationManager())
+        //            .environmentObject(Schedule())
     }
 }

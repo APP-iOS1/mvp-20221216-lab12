@@ -29,6 +29,8 @@
 		52DAB118295033EB005937DB /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB117295033EB005937DB /* AddPostView.swift */; };
 		52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB1192950341F005937DB /* ImagePicker.swift */; };
 		52DAB11F295044D1005937DB /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB11E295044D1005937DB /* SDWebImageSwiftUI */; };
+		52E9DDFC295143B30093E4AE /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DDFB295143B30093E4AE /* NotificationManager.swift */; };
+		52E9DDFF295144550093E4AE /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DDFE295144550093E4AE /* LocalNotification.swift */; };
 		52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF2294F3F7000F94AC1 /* ViewStore.swift */; };
 		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
@@ -63,6 +65,8 @@
 		52DAB11529502AD0005937DB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		52DAB117295033EB005937DB /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		52DAB1192950341F005937DB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		52E9DDFB295143B30093E4AE /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		52E9DDFE295144550093E4AE /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		52F42BF2294F3F7000F94AC1 /* ViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStore.swift; sourceTree = "<group>"; };
 		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 		529C2F95294DCA0500366BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52E9DDFD295144330093E4AE /* NotificationModel */,
 				F259966E29505AE2004E5AD1 /* CalanderModel */,
 				52DAB111295028B0005937DB /* Post.swift */,
 				52DAB113295029C0005937DB /* Like.swift */,
@@ -163,6 +168,7 @@
 		529C2F96294DCA0F00366BCB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				52E9DDFA2951439A0093E4AE /* NotificationViewModel */,
 				F259967C29505B0E004E5AD1 /* CalanderViewModel */,
 				52DAB10F2950287C005937DB /* PostStore.swift */,
 				52DAB1192950341F005937DB /* ImagePicker.swift */,
@@ -170,6 +176,22 @@
 				F259966329505725004E5AD1 /* LoginSignupStore.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		52E9DDFA2951439A0093E4AE /* NotificationViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				52E9DDFB295143B30093E4AE /* NotificationManager.swift */,
+			);
+			path = NotificationViewModel;
+			sourceTree = "<group>";
+		};
+		52E9DDFD295144330093E4AE /* NotificationModel */ = {
+			isa = PBXGroup;
+			children = (
+				52E9DDFE295144550093E4AE /* LocalNotification.swift */,
+			);
+			path = NotificationModel;
 			sourceTree = "<group>";
 		};
 		F25996672950589B004E5AD1 /* MainView */ = {
@@ -359,6 +381,7 @@
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				52DAB11629502AD0005937DB /* Comment.swift in Sources */,
+				52E9DDFC295143B30093E4AE /* NotificationManager.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,
 				F259967929505AFC004E5AD1 /* CustomDatePicker.swift in Sources */,
 				F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */,
@@ -368,6 +391,7 @@
 				F259967229505AE2004E5AD1 /* Task.swift in Sources */,
 				F259967A29505AFC004E5AD1 /* Home.swift in Sources */,
 				529C2F9F294DD02A00366BCB /* SearchView.swift in Sources */,
+				52E9DDFF295144550093E4AE /* LocalNotification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var viewStore: ViewStore
+    @EnvironmentObject var inManager: NotificationManager
     
     // TODO: - LoginStore 만들고 난 후 삭제할 변수들
     @State private var id: String = ""
@@ -51,6 +52,9 @@ struct LoginView: View {
                                 .foregroundColor(.black)
                         }
                     }
+                    .task {
+                        try? await inManager.requestAuthorization()
+                    }
                     .padding()
                     
                     Spacer()
@@ -84,5 +88,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .environmentObject(ViewStore())
+            .environmentObject(NotificationManager())
     }
 }

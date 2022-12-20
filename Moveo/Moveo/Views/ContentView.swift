@@ -15,6 +15,7 @@ extension Color{
 
 struct ContentView: View {
     @EnvironmentObject var viewStore: ViewStore
+    
     var body: some View {
         if viewStore.currentLoginCheckViewChanger {
             LodingAndLoginView()
