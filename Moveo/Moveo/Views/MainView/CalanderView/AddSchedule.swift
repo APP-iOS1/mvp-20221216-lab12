@@ -47,7 +47,7 @@ struct AddSchedule: View {
     }
 
     func addScheduleToTasks(time: Date) {
-        sampleTasks.sortedTasks.append(contentsOf: [TaskMetaData(task: [Task(title: todoTitle)], taskDate: scheduledDay, taskTime: time)]
+        sampleTasks.sortedTasks.append(contentsOf: [TaskMetaData(task: [Tasks(title: todoTitle)], taskDate: scheduledDay, taskTime: time)]
         )
     }
 }

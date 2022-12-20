@@ -8,7 +8,7 @@
 import Foundation
 
 // [task]
-struct Task: Identifiable {
+struct Tasks: Identifiable {
     var id = UUID().uuidString
     var title: String
     var time: Date = Date()
@@ -17,7 +17,7 @@ struct Task: Identifiable {
 // task meta view
 struct TaskMetaData: Identifiable {
     var id = UUID().uuidString
-    var task: [Task]
+    var task: [Tasks]
     var taskDate: Date
     var taskTime: Date
 }

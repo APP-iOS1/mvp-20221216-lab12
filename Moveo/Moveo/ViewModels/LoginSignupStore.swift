@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import SwiftUI
+import FirebaseAuth
 
 // MARK: LoginSignupStore
 class LoginSignupStore: ObservableObject {
@@ -204,6 +205,7 @@ class LoginSignupStore: ObservableObject {
 
         if !users.isEmpty {
             let myUser: User = users.filter{ $0.id == uid }[0]
+            
             currentUserData = myUser
         }
     }
@@ -264,5 +266,20 @@ class LoginSignupStore: ObservableObject {
             return ""
         }
     }
+    
+    // 북마크한 게시물들을 UserStore에 올리기, 삭제하기
+    func uploadBookmarkedPost(selectedPostId: String) {
+
+        let user = self.currentUserData
+        let userData = ["id" : user?.id ?? "", "email" : user?.email ?? "", "name" : user?.name ?? "", "nickName" : user?.nickName ?? "", "profileImageUrl" : user?.profileImageUrl ?? "", "category" : user?.category ?? [], "bookmark" : user?.bookmark ?? [], "description" : user?.description ?? "" ] as [String : Any]
+        Firestore.firestore().collection("users").document(user?.id ?? "").setData(userData as [String : Any]) { error in
+            if let error = error {
+                print(error)
+                return
+            }
+        }
+       fetchUser()
+    }
+
 }
 

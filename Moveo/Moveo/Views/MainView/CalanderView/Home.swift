@@ -53,6 +53,8 @@ struct Home: View {
             .safeAreaInset(edge: .bottom) {
                 Button {
                     bottomSheetActivated.toggle()
+                    // profileView에서 fatal error 났을 때 임시방편 로그아웃 메서드
+                    loginSignupStore.logout()
                 } label: {
                     Text("일정 추가")
                         .fontWeight(.bold)

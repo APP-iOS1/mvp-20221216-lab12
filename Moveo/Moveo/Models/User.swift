@@ -18,11 +18,6 @@ struct User : Codable, Identifiable {
     var description : String
 }
 
-struct Bookmark : Codable, Identifiable {
-    var id : String
-    var postUid : String
-}
-
 struct Follower : Codable, Identifiable {
     var id : String
     var followerUid : String
