@@ -25,6 +25,7 @@ class LoginSignupStore: ObservableObject {
     @Published var signUpPwCheck: String = ""
     @Published var profileImageUrlString: String = "test"
     @Published var selectedCategories : [String] = []
+    @Published var bookmark : [String] = []
     // 프로필
     @Published var profileImageUrl: UIImage?
     //    @Published var currentUserInfo: [MyUser] = []
@@ -37,6 +38,9 @@ class LoginSignupStore: ObservableObject {
     
     // User 배열
     @Published var users : [User] = []
+    
+    // current user Data
+    @Published var currentUserData: User? = nil
     
     init() {
         currentUser = Auth.auth().currentUser
@@ -52,6 +56,7 @@ class LoginSignupStore: ObservableObject {
             print("Successfully logged in as user: \(result?.user.uid ?? "")")
             self.currentUser = result?.user
         }
+        self.fetchUser()
     }
     
     // 로그아웃
@@ -106,7 +111,7 @@ class LoginSignupStore: ObservableObject {
                 
                 print(uid)
                 // model을 쓰면 쉽게 구조화할 수 있음
-                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories] as [String : Any]
+                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories, "bookmark" : self.bookmark] as [String : Any]
                 
                 Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
                     if let error = error {
@@ -137,7 +142,8 @@ class LoginSignupStore: ObservableObject {
                         let email: String = docData["email"] as? String ?? ""
                         let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
                         let category : [String] = docData["category"] as? [String] ?? []
-                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category)
+                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
+                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark)
                         
                         self.users.append(user)
                     }
@@ -191,7 +197,15 @@ class LoginSignupStore: ObservableObject {
         
         self.fetchUser()
     }
-    //
+    
+    func currentUserDataInput() {
+            let uid: String = currentUser?.uid ?? ""
+            
+            if !users.isEmpty {
+                let myUser: User = users.filter{ $0.id == uid }[0]
+                currentUserData = myUser
+            }
+        }    //
     //
     //    func findPostNickname(selectedPost : Post) -> String {
     //        let uid: String = selectedPost.currentUser

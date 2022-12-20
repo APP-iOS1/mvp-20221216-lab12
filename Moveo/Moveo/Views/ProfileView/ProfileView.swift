@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 // TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct ProfileView: View {
     
-    @EnvironmentObject var loginSignupStore: LoginSignupStore
+    @EnvironmentObject var userStore: LoginSignupStore
     
     @State var isExpanded = false
     @State var subviewHeight : CGFloat = 0
@@ -35,7 +35,7 @@ struct ProfileView: View {
                 
                 VStack {
                     HStack(spacing: 15) {
-                        Text("@moveo12_")
+                        Text(userStore.currentUserData?.nickName ?? "")
                             .font(.title2)
                             .bold()
                         
@@ -64,14 +64,14 @@ struct ProfileView: View {
                     .padding(.top, 10)
                     .confirmationDialog("메뉴", isPresented: $isSelectedMenu) {
                         Button("로그아웃", role: .destructive) {
-                            loginSignupStore.logout()
+                            userStore.logout()
                         }
                     }
                     
                     ScrollView {
                         VStack {
                             HStack(spacing: 50) {
-                                Image("mainProfile")
+                                WebImage(url: URL(string: userStore.currentUserData?.profileImageUrl ?? ""))
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .clipShape(Circle())
@@ -217,6 +217,7 @@ struct ProfileView: View {
                 }
             }
         }
+        
     }
 }
 
@@ -329,6 +330,7 @@ struct ViewHeightKey: PreferenceKey {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+            .environmentObject(LoginSignupStore())
     }
 }
 

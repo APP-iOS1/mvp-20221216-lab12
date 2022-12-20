@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContainTabView: View {
     @State private var tabSelection = 1
-    
+    @EnvironmentObject var userStore : LoginSignupStore
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationView {
@@ -39,6 +39,9 @@ struct ContainTabView: View {
                 Image(systemName:"person.fill")
                 Text("프로필")
             }.tag(4)
+        }
+        .onAppear {
+            userStore.currentUserDataInput()
         }
     }
 }
