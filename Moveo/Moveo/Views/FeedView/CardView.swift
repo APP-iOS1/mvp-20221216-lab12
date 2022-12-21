@@ -149,7 +149,15 @@ struct CardView: View {
         }
         .onAppear {
             loginSignupStore.currentUserDataInput()
-            
+            checkBookmarked()
+        }
+    }
+    // 앱을 껐다 켰을 때 북마크가 되어있던 포스트인지 체크
+    func checkBookmarked() {
+        if let currentUser = loginSignupStore.currentUserData {
+            if currentUser.bookmark.contains(post.id) {
+                self.markToggle = false
+            }
         }
     }
 }
