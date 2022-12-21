@@ -43,6 +43,7 @@ class LoginSignupStore: ObservableObject {
     
     // User 배열
     @Published var users : [User] = []
+
     
     // current user Data
     @Published var currentUserData: User? = nil

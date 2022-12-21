@@ -44,6 +44,7 @@
 		F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967729505AFC004E5AD1 /* ScheduleToggle.swift */; };
 		F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967D29505B0E004E5AD1 /* HomeViewModel.swift */; };
 		F259968029505E6D004E5AD1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967F29505E6D004E5AD1 /* User.swift */; };
+		F26AEDF52952A9680069B372 /* FollowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26AEDF42952A9680069B372 /* FollowStore.swift */; };
 		F2E4CC5C2951430000D21D2A /* ProfileImageSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4CC5B2951430000D21D2A /* ProfileImageSetupView.swift */; };
 		F2E4CC5E2951430600D21D2A /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4CC5D2951430600D21D2A /* SignUpView.swift */; };
 		F2E4CC6629514C1700D21D2A /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4CC6529514C1700D21D2A /* CategoryView.swift */; };
@@ -83,6 +84,7 @@
 		F259967729505AFC004E5AD1 /* ScheduleToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleToggle.swift; sourceTree = "<group>"; };
 		F259967D29505B0E004E5AD1 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F259967F29505E6D004E5AD1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F26AEDF42952A9680069B372 /* FollowStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowStore.swift; sourceTree = "<group>"; };
 		F2E4CC5B2951430000D21D2A /* ProfileImageSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageSetupView.swift; sourceTree = "<group>"; };
 		F2E4CC5D2951430600D21D2A /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		F2E4CC6529514C1700D21D2A /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -173,11 +175,12 @@
 		529C2F96294DCA0F00366BCB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				F259967C29505B0E004E5AD1 /* CalanderViewModel */,
+				F26AEDF42952A9680069B372 /* FollowStore.swift */,
 				52DAB10F2950287C005937DB /* PostStore.swift */,
 				52DAB1192950341F005937DB /* ImagePicker.swift */,
 				F259966329505725004E5AD1 /* LoginSignupStore.swift */,
 				52E9DE1F2951DB970093E4AE /* CommentStore.swift */,
+				F259967C29505B0E004E5AD1 /* CalanderViewModel */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				52DAB114295029C0005937DB /* Like.swift in Sources */,
 				F259967829505AFC004E5AD1 /* AddSchedule.swift in Sources */,
 				F2E4CC6629514C1700D21D2A /* CategoryView.swift in Sources */,
+				F26AEDF52952A9680069B372 /* FollowStore.swift in Sources */,
 				52DAB1102950287D005937DB /* PostStore.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				F2E4CC5E2951430600D21D2A /* SignUpView.swift in Sources */,

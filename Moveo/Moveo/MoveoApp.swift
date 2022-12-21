@@ -22,6 +22,7 @@ struct MoveoApp: App {
                 .environmentObject(LoginSignupStore())
                 .environmentObject(SampleTask())
                 .environmentObject(CommentStore())
+                .environmentObject(FollowStore())
         }
     }
 }

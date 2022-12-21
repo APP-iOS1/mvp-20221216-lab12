@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Home: View {
     @EnvironmentObject var loginSignupStore: LoginSignupStore
+    @EnvironmentObject var postStore : PostStore
+    @EnvironmentObject var followingStore : FollowStore
     @State private var currentDate: Date = Date()
     @State private var bottomSheetActivated: Bool = false
     
@@ -72,6 +74,7 @@ struct Home: View {
         }
         .onAppear{
             loginSignupStore.fetchUser()
+            postStore.fetchPosts()
         }
     }
 }
