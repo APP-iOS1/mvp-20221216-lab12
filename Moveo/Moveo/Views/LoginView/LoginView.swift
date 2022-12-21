@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var viewStore: ViewStore
-    @EnvironmentObject var inManager: NotificationManager
-    
-    // TODO: - LoginStore 만들고 난 후 삭제할 변수들
-    @State private var id: String = ""
-    @State private var password: String = ""
+    @EnvironmentObject var userStore : LoginSignupStore
+
+    @State private var dismissedToRoot : Bool = false
     @State private var aniOpacity: CGFloat = 0
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Image("mainLogo")
                     .resizable()
@@ -27,20 +24,19 @@ struct LoginView: View {
                 
                 VStack {
                     Group {
-                        TextField("Email", text: $id)
+                        TextField("Email", text: $userStore.email)
                             .keyboardType(.emailAddress)
                             .autocorrectionDisabled()
                             .textInputAutocapitalization(.never)
                         
-                        SecureField("Password", text: $password)
+                        SecureField("Password", text: $userStore.password)
                     }
                     .padding(10)
                     .background(Color.pointGray)
                     .padding(.horizontal, 30)
                     
                     Button {
-                        viewStore.currentLoginCheckViewChanger = false
-                        // MARK: - LoginStore login 함수 자리
+                        userStore.loginUser()
                     } label: {
                         ZStack {
                             Rectangle()
@@ -52,9 +48,6 @@ struct LoginView: View {
                                 .foregroundColor(.black)
                         }
                     }
-                    .task {
-                        try? await inManager.requestAuthorization()
-                    }
                     .padding()
                     
                     Spacer()
@@ -64,12 +57,10 @@ struct LoginView: View {
                             .font(.callout)
                             .foregroundColor(.gray)
                         
-                        // TODO: - 회원가입 뷰 만들면 destination 수정 필요
-                        NavigationLink(destination: SignupView()) {
+                        NavigationLink(destination: ProfileImageSetupView(dismissToRoot: $dismissedToRoot), isActive: self.$dismissedToRoot) {
                             Text("회원가입")
-                                .font(.callout)
-                                .foregroundColor(.blue)
                         }
+                        .isDetailLink(false)
                     }
                     .padding(.bottom, 10)
                 }
@@ -87,7 +78,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .environmentObject(ViewStore())
-            .environmentObject(NotificationManager())
+            .environmentObject(LoginSignupStore())
     }
 }

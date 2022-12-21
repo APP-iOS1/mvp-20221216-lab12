@@ -87,6 +87,70 @@ struct CustomDatePicker: View {
                 }
             }
             .animation(.spring(), value: currentDate)
+            
+            // 오늘의 일정 view
+// 같은 날에 일정을 여러 개 추가할 수 있는데 해당 날짜에 일정이 없을 때 "추가된 일정이 없습니다" 문구가 안 나옴
+            VStack(spacing: 15) {
+                Text("오늘의 일정")
+                    .font(.title2.bold())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, 20)
+                
+                if let task = sampleTasks.sortedTasks.filter({ task in
+                    isSameDay(date1: task.taskDate, date2: currentDate)
+                }) {
+//                if let _ = sampleTasks.tasks.first(where: { task in
+//                    return isSameDay(date1: task.taskDate, date2: currentDate)
+//                }) {
+                
+                    // schedule toggle 카드
+                    ForEach(task, id: \.id) { t in
+                        ForEach(t.task) { j in
+                            HStack {    
+                                ScheduleToggle(time: t.taskTime, title: j.title )
+                                
+                            }
+                        }
+                    }
+                    
+                    
+                } else {
+                    Text("추가된 일정이 없습니다")
+                }
+            }
+            .animation(.spring(), value: currentDate)
+            .padding()
+            .padding(.top, 25)
+            
+            
+// 이 코드를 쓰면 같은 날에 여러 일정을 추가하지 못한다. 대신 일정이 없을 때 "추가된 일정이 없습니다" 문구가 나옴
+//
+//            VStack(spacing: 15) {
+//                Text("오늘의 일정")
+//                    .font(.title2.bold())
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding(.vertical, 20)
+//
+//                if let task = sampleTasks.tasks.first(where: { task in
+//                    return isSameDay(date1: task.taskDate, date2: currentDate)
+//                }) {
+//
+//
+//                    // 일정 완료 유무 확인 toggle
+//                    ForEach(task.task) { t in
+//                        HStack {
+//                            ScheduleToggle(time: t.time, title: t.title)
+//                        }
+//                    }
+//
+//                } else {
+//                    Text("추가된 일정이 없습니다")
+//                }
+//            }
+//            .animation(.spring(), value: currentDate)
+//            .padding()
+//            .padding(.top, 25)
+            
         }
         .onChange(of: currentMonth) { newValue in
             // 월 업데이트
