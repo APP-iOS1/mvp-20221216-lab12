@@ -54,9 +54,9 @@ struct OtherPersonProfileView: View {
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .clipShape(Circle())
-                                Followers(text1: "\(self.countMyPosts())", text2: "게시물")
-                                Followers(text1: "\(followingStore.followers.count)", text2: "팔로워")
-                                Followers(text1: "\(followingStore.followings.count)", text2: "팔로잉")
+                                FollowersView(text1: self.countMyPosts(), text2: "게시물")
+                                FollowersView(text1: followingStore.followers.count, text2: "팔로워")
+                                FollowersView(text1: followingStore.followings.count, text2: "팔로잉")
                             }
                             .padding(10)
                             
@@ -91,8 +91,8 @@ struct OtherPersonProfileView: View {
                         
                         LazyVStack(pinnedViews: [.sectionHeaders]) {
                                     LazyVGrid(columns: columns) {
-                                        ForEach(myPosts) { post in
-                                            MyPost(post: post)
+                                        ForEach($myPosts) { post in
+                                            MyPostView(post: post)
                                         }
                                     }
                                     .padding(.leading, 10)
@@ -103,9 +103,9 @@ struct OtherPersonProfileView: View {
             }
         }
         .navigationTitle(loginSignupStore.postUserData?.nickName ?? "")
-        .onAppear{
+        .task{
             postStore.fetchPosts()
-            loginSignupStore.fetchUser()
+            await loginSignupStore.fetchUser()
             followingStore.fetchFollowing()
             followingStore.fetchFollower()
             fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")

@@ -96,7 +96,9 @@ struct CardView: View {
                                     loginSignupStore.currentUserData?.bookmark.remove(at: (loginSignupStore.currentUserData?.bookmark.firstIndex(of: post.id)!)!)
                                     //print(loginSignupStore.currentUserData?.bookmark)
                                 }
-                                loginSignupStore.uploadBookmarkedPost(selectedPostId: post.id)
+                                
+                                    loginSignupStore.uploadBookmarkedPost(selectedPostId: post.id)
+                                
                             } label: {
                                 if markToggle {
                                     Image(systemName: "bookmark")

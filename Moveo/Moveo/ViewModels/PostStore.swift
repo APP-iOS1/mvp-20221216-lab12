@@ -14,7 +14,9 @@ import FirebaseStorage
 class PostStore: ObservableObject {
     // 데이터베이스에서 정보를 받아와서 Post 구조체의 배열로 만들기 위해서 필요
     @Published var posts: [Post] = []
-    
+    // 내가 작성한 포스트들
+    @Published var myPosts : [Post] = []
+    @Published var bookMarkedPost : [Post] = []
     // UIImage 형식이기 때문에 url을 붙이면 헷갈림 그래서 그냥 postImage
     @Published var postImage: UIImage?
     @Published var bodyText: String = ""

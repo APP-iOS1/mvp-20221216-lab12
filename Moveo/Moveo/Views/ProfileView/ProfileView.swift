@@ -31,7 +31,6 @@ struct ProfileView: View {
     @State var bookMarkedPosts : [Post] = []
     @State var myPosts : [Post] = []
     // Motivators에 나를 제외한 유저들을 보여줌
-    @State var usersExceptMe : [User] = []
     
     var body: some View {
         NavigationStack {
@@ -46,6 +45,17 @@ struct ProfileView: View {
                             .bold()
                         
                         Spacer()
+                        
+                        Button {
+                            dump("posts : \(postStore.posts)")
+                            dump("users : \(loginSignupStore.users)")
+                            dump("usersExcept : \(loginSignupStore.usersExceptMe)")
+                
+                            
+                        } label: {
+                            Text("check")
+                        }
+
                         
                         NavigationLink(destination: {
                             Text("보관함")
@@ -81,9 +91,9 @@ struct ProfileView: View {
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .clipShape(Circle())
-                                Followers(text1: "\(self.countMyPosts())", text2: "게시물")
-                                Followers(text1: "\(followingStore.followers.count)", text2: "팔로워")
-                                Followers(text1: "\(followingStore.followings.count)", text2: "팔로잉")
+                                FollowersView(text1: self.countMyPosts(), text2: "게시물")
+                                FollowersView(text1: followingStore.followers.count, text2: "팔로워")
+                                FollowersView(text1: followingStore.followings.count, text2: "팔로잉")
                             }
                             .padding(.vertical, 10)
                             
@@ -143,8 +153,8 @@ struct ProfileView: View {
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 20) {
-                                        ForEach(usersExceptMe) { user in
-                                            Motivators(user: user)
+                                        ForEach(loginSignupStore.usersExceptMe) { user in
+                                            MotivatorsView(user: user)
                                         }
                                     }
                                 }
@@ -164,11 +174,11 @@ struct ProfileView: View {
                         }
                         
                         LazyVStack(pinnedViews: [.sectionHeaders]) {
-                            Section(header: Header(myToggle: $myToggle, bookToggle: $bookToggle, menuXAxis: $menuXAxis)) {
+                            Section(header: HeaderView(myToggle: $myToggle, bookToggle: $bookToggle, menuXAxis: $menuXAxis)) {
                                 if myToggle {
                                     LazyVGrid(columns: columns) {
-                                        ForEach(myPosts) { post in
-                                            MyPost(post: post)
+                                        ForEach($myPosts) { post in
+                                            MyPostView(post: post)
                                         }
                                     }
                                     .padding(.leading, 20)
@@ -176,8 +186,8 @@ struct ProfileView: View {
                                     
                                 } else {
                                     LazyVGrid(columns: columns) {
-                                        ForEach(bookMarkedPosts) { post in
-                                            MyPost(post: post)
+                                        ForEach($bookMarkedPosts) { post in
+                                            MyPostView(post: post)
                                         }
                                     }
                                     .padding(.leading, 20)
@@ -189,12 +199,14 @@ struct ProfileView: View {
                 }
             }
         }
-        .onAppear{
+        .onAppear {
             postStore.fetchPosts()
+            loginSignupStore.fetchUser()
+            dump("users : \(loginSignupStore.users)")
+            dump("profileView: \(postStore.posts)")
             makeBookMarkedPosts()
             fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")
-            fetchUserExceptMe()
-            loginSignupStore.fetchUser()
+            
             loginSignupStore.currentUserDataInput()
             followingStore.fetchFollowing()
             followingStore.fetchFollower()
@@ -237,148 +249,16 @@ struct ProfileView: View {
         return count
     }
     
-    func fetchUserExceptMe() {
-        self.usersExceptMe = []
-        guard let currentUser = loginSignupStore.currentUserData else { return }
-        for user in loginSignupStore.users {
-            if user.id != currentUser.id {
-                usersExceptMe.append(user)
-            }
-        }
-    }
+
 }
 
-// Sticky Header 치면 나옴
-struct Header: View {
-    @Binding var myToggle: Bool
-    @Binding var bookToggle: Bool
-    @Binding var menuXAxis: Double
-    
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color.backgroundColor)
-                .frame(height: 40)
-            VStack {
-                HStack {
-                    Button {
-                        myToggle = true
-                        bookToggle = false
-                        menuXAxis = -90
-                    } label: {
-                        Text("My")
-                            .foregroundColor(myToggle ? .mainColor : .black)
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        bookToggle = true
-                        myToggle = false
-                        menuXAxis = 90
-                    } label: {
-                        Text("Bookmark")
-                            .foregroundColor(bookToggle ? .mainColor : .black)
-                    }
-                }
-                .padding(.leading, 95)
-                .padding(.trailing, 65)
-                
-                Rectangle()
-                    .fill(Color.mainColor)
-                    .animation(.linear(duration: 0.2), value: menuXAxis)
-                    .offset(x: menuXAxis)
-                    .frame(width: 160, height: 5)
-            }
-        }
-    }
-}
 
-struct Followers : View {
-    var text1 : String
-    var text2 : String
-    var body: some View {
-        VStack(alignment: .center, spacing: 2) {
-            Text(text1)
-                .font(.system(size: 16, weight: .semibold))
-            Text(text2)
-                .font(.system(size: 15))
-        }
-    }
-}
 
-struct Motivators : View {
-    @EnvironmentObject var followingStore : FollowStore
-    @EnvironmentObject var loginSignupStore : LoginSignupStore
-    @State var buttonToggle = true
-    var user : User
-    var body: some View {
-        VStack(spacing: 5) {
-            WebImage(url: URL(string: user.profileImageUrl))
-                .resizable()
-                .frame(width: 60, height: 60)
-                .clipShape(Circle())
-            Text(user.nickName)
-                .font(.system(size: 13, weight: .semibold))
-                .padding(.bottom, 1)
-            Button {
-                buttonToggle.toggle()
-                if buttonToggle {
-                    followingStore.deleteFollowing(user: user, currentUser: loginSignupStore.currentUserData!)
-                } else {
-                    followingStore.addFollowing(user: user, currentUser: loginSignupStore.currentUserData!)
-                }
-            } label: {
-                if buttonToggle {
-                    Text("팔로우")
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(width: 50)
-                        .background(Color("mainColor"))
-                        .cornerRadius(50)
-                } else {
-                    Text("팔로잉")
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundColor(.black)
-                        .frame(width: 50)
-                        .background(Color.pointGray)
-                        .cornerRadius(50)
-                }
-                
-            }
-        }
-        .onAppear {
-            // loginSignupStore.currentUserDataInput()
-            followingStore.fetchFollowing()
-            checkFollwing()
-        }
-        .frame(width: 80, height: 110)
-        
-    }
-    
-    
-    // 현재 팔로우를 하고 있는지 아닌지 체크해서 buttonToggle을 바꿈
-    // 근데 바로 안뜨고 화면 전환해야 적용됨
-    func checkFollwing() {
-        for following in followingStore.followings {
-            if following.id == user.id {
-                buttonToggle = false
-            }
-        }
-    }
-}
 
-struct MyPost : View {
-    var post : Post
-    var body: some View {
-        WebImage(url: URL(string: post.postImageUrl))
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 170, height: 175)
-            .clipped()
-            .cornerRadius(10)
-    }
-}
+
+
+
+
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat { 0 }

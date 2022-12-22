@@ -43,7 +43,12 @@ struct FeedView: View {
                                 .foregroundColor(.mainColor)
                         }
                     }
-                    
+                    Button {
+                        dump(postStore.posts)
+                    } label: {
+                        Text("Check posts")
+                    }
+
                     Divider()
                     
                     

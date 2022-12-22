@@ -44,7 +44,7 @@ class LoginSignupStore: ObservableObject {
     
     // User 배열
     @Published var users : [User] = []
-    
+    @Published var usersExceptMe : [User] = []
     // current user Data
     @Published var currentUserData: User?
     
@@ -54,8 +54,6 @@ class LoginSignupStore: ObservableObject {
     // TODO: - 앱을 실행시킬 때 초기화로 현재유저값을 받아와도 될 것 같음
     init() {
         currentUser = Auth.auth().currentUser
-//
-//        fetchUser()
 //
 //        if let userUid: String = currentUser?.uid {
 //           currentUserDataInput(uid: userUid)
@@ -74,7 +72,7 @@ class LoginSignupStore: ObservableObject {
             print("Successfully logged in as user: \(result?.user.uid ?? "")")
             self.currentUser = result?.user
         }
-        self.fetchUser()
+         
     }
     
     // 로그아웃
@@ -84,8 +82,8 @@ class LoginSignupStore: ObservableObject {
     }
     
     // 회원가입
-    func createNewAccount() {
-        Auth.auth().createUser(withEmail: signUpEmail, password: signUpPw) { result, error in
+    func createNewAccount()  {
+         Auth.auth().createUser(withEmail: signUpEmail, password: signUpPw) { result, error in
             if let error = error {
                 print("Failed to create user:", error)
                 return
@@ -93,7 +91,7 @@ class LoginSignupStore: ObservableObject {
             
             print("Successfully created user: \(result?.user.uid ?? "")")
             //            self.storeUserInfoToDatabase(uid: result?.user.uid ?? "")
-            self.storeUserInfoToDatabase(uid: result?.user.uid ?? "")
+             self.storeUserInfoToDatabase(uid: result?.user.uid ?? "")
         }
     }
     
@@ -135,7 +133,6 @@ class LoginSignupStore: ObservableObject {
             }
             
         }
-        fetchUser()
     }
     
     // TODO: - 위 storeUserInfoToDatabase 함수와 기능이 겹침 / 중복 안되게 사용해볼 것
@@ -154,7 +151,7 @@ class LoginSignupStore: ObservableObject {
                 return
             }
             
-            ref.downloadURL() { url, error in
+             ref.downloadURL() { url, error in
                 if let error = error {
                     print(error)
                     return
@@ -168,7 +165,7 @@ class LoginSignupStore: ObservableObject {
         }
     }
     
-    func profileUpdate(profileImageUrl: URL, selectedPost: Post) {
+    func profileUpdate(profileImageUrl: URL, selectedPost: Post)   {
         let uid = selectedPost.writerUid
         name = users.filter{ $0.id == uid }[0].name
         nickName = users.filter{ $0.id == uid }[0].nickName
@@ -183,7 +180,6 @@ class LoginSignupStore: ObservableObject {
             }
         }
         
-        self.fetchUser()
     }
     
     // TODO: - 로그인 시 한번만 해줘도 될 것 같음 / 유저들의 정보를 users에 넣어줌
@@ -211,6 +207,7 @@ class LoginSignupStore: ObservableObject {
                     }
                 }
             }
+        self.fetchUserExceptMe()
     }
     
     // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
@@ -234,7 +231,7 @@ class LoginSignupStore: ObservableObject {
                 return
             }
         }
-        fetchUser()
+        
     }
     
     // post를 작성한 유저의 데이터를 받아오는 함수
@@ -246,5 +243,20 @@ class LoginSignupStore: ObservableObject {
             self.postUserData = otherUser
         }
     }
+    // userExceptMe 배열을 패치해주는 함수
+    func fetchUserExceptMe() {
+        self.usersExceptMe = []
+        if !(self.users.isEmpty) {
+            print("if")
+            for user in self.users {
+                print("for")
+                if user.id != self.currentUser?.uid {
+                    print("if")
+                    usersExceptMe.append(user)
+                }
+            }
+        }
+    }
+
 }
 
