@@ -47,10 +47,7 @@ struct ProfileView: View {
                         Spacer()
                         
                         Button {
-                            dump("posts : \(postStore.posts)")
-                            dump("users : \(loginSignupStore.users)")
-                            dump("usersExcept : \(loginSignupStore.usersExceptMe)")
-                
+
                             
                         } label: {
                             Text("check")
@@ -199,15 +196,14 @@ struct ProfileView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             postStore.fetchPosts()
             loginSignupStore.fetchUser()
-            dump("users : \(loginSignupStore.users)")
-            dump("profileView: \(postStore.posts)")
+            loginSignupStore.fetchUsersExceptMe()
             makeBookMarkedPosts()
-            fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")
-            
+            fetchMyPosts(category:loginSignupStore.currentUserData?.category[0] ?? "")
             loginSignupStore.currentUserDataInput()
+           
             followingStore.fetchFollowing()
             followingStore.fetchFollower()
         }

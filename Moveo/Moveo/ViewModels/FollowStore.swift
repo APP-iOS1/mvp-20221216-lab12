@@ -17,9 +17,11 @@ class FollowStore : ObservableObject {
     @Published var followings : [Following] = []
     @Published var followers : [Follower] = []
     @Published var currentUser: Firebase.User?
-    
+    var loginSignupStore = LoginSignupStore()
+ 
     init() {
         currentUser = Auth.auth().currentUser
+        loginSignupStore.currentUserDataInput()
             }
     
     // 팔로잉된 정보를 store에서 가져오는 기능
@@ -69,11 +71,11 @@ class FollowStore : ObservableObject {
     }
     
     // 팔로잉한 정보를 store로 보내주는 기능
-    func addFollowing(user: User, currentUser: User) {
+    func addFollowing(user: User) {
 
         let following = ["id" : user.id, "nickName" : user.nickName, "imageUrl" : user.profileImageUrl]
-        let follower = ["id" : currentUser.id, "nickName" : currentUser.nickName, "imageUrl" : currentUser.profileImageUrl]
-        Firestore.firestore().collection("users").document(currentUser.id)
+        let follower = ["id" : loginSignupStore.currentUserData?.id, "nickName" : loginSignupStore.currentUserData?.nickName, "imageUrl" : loginSignupStore.currentUserData?.profileImageUrl]
+        Firestore.firestore().collection("users").document(loginSignupStore.currentUserData?.id ?? "")
             .collection("Following")
             .document(user.id)
             .setData(following as [String: Any]) { error in
@@ -87,7 +89,7 @@ class FollowStore : ObservableObject {
         
         Firestore.firestore().collection("users").document(user.id)
             .collection("Follower")
-            .document(currentUser.id)
+            .document(loginSignupStore.currentUserData?.id ?? "")
             .setData(follower as [String: Any]) { error in
                 if let error = error {
                     print(error)
@@ -96,28 +98,118 @@ class FollowStore : ObservableObject {
                 
                 print("followerSuccess")
             }
-        fetchFollowing()
-        fetchFollower()
+        // fetchFollower
+        Firestore.firestore().collection("users")
+            .document(self.currentUser?.uid ?? "")
+            .collection("Follower")
+            .getDocuments { (snapshot, error) in
+                self.followers.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                     
+                        let docData = document.data()
+                        let id : String = docData["id"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let imageUrl: String = docData["imageUrl"] as? String ?? ""
+                        let follower: Follower = Follower(id: id, nickName: nickName, imageUrl: imageUrl)
+                        
+                        self.followers.append(follower)
+                    }
+                }
+            }
+        // fetchFollowing
+        Firestore.firestore().collection("users")
+            .document(self.currentUser?.uid ?? "")
+            .collection("Following")
+            .getDocuments { (snapshot, error) in
+                self.followings.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                     
+                        let docData = document.data()
+                        let id : String = docData["id"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let imageUrl: String = docData["imageUrl"] as? String ?? ""
+                        let following: Following = Following(id: id, nickName: nickName, imageUrl: imageUrl)
+                        
+                        self.followings.append(following)
+                    }
+                }
+            }
+
     }
 
     // 팔로잉한 정보를 store에서 삭제하는 기능
-    func deleteFollowing(user: User, currentUser: User) {
-
-        Firestore.firestore().collection("users").document(currentUser.id).collection("Following").document(user.id).delete() { err in
+    func deleteFollowing(user: User) {
+        Firestore.firestore().collection("users").document(loginSignupStore.currentUserData?.id ?? "").collection("Following").document(user.id).delete() { err in
             if let err = err {
                 print("팔로잉 취소 실패: \(err)")
             } else {
                 print("팔로우 취소 성공")
             }
         }
-        Firestore.firestore().collection("users").document(user.id).collection("Follower").document(currentUser.id).delete() { err in
+        Firestore.firestore().collection("users").document(user.id).collection("Follower").document(loginSignupStore.currentUserData?.id ?? "").delete() { err in
             if let err = err {
                 print("팔로워 취소 실패: \(err)")
             } else {
                 print("팔로워 취소 성공")
             }
         }
-        fetchFollowing()
-        fetchFollower()
+        // fetchFollower
+        Firestore.firestore().collection("users")
+            .document(self.currentUser?.uid ?? "")
+            .collection("Follower")
+            .getDocuments { (snapshot, error) in
+                self.followers.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                     
+                        let docData = document.data()
+                        let id : String = docData["id"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let imageUrl: String = docData["imageUrl"] as? String ?? ""
+                        let follower: Follower = Follower(id: id, nickName: nickName, imageUrl: imageUrl)
+                        
+                        self.followers.append(follower)
+                    }
+                }
+            }
+        // fetchFollowing
+        Firestore.firestore().collection("users")
+            .document(self.currentUser?.uid ?? "")
+            .collection("Following")
+            .getDocuments { (snapshot, error) in
+                self.followings.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                     
+                        let docData = document.data()
+                        let id : String = docData["id"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let imageUrl: String = docData["imageUrl"] as? String ?? ""
+                        let following: Following = Following(id: id, nickName: nickName, imageUrl: imageUrl)
+                        
+                        self.followings.append(following)
+                    }
+                }
+            }
+
     }
+    
+    // 현재 팔로우를 하고 있는지 아닌지 체크해서 buttonToggle을 바꿈
+    // 근데 바로 안뜨고 화면 전환해야 적용됨
+    func checkFollwing(user: User) -> Bool {
+        
+        for following in followings {
+            if following.id == user.id {
+                return true
+            }
+        }
+        return false
+    }
+    
 }

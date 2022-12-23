@@ -25,9 +25,9 @@ struct MotivatorsView : View {
             Button {
                 buttonToggle.toggle()
                 if buttonToggle {
-                    followingStore.deleteFollowing(user: user, currentUser: loginSignupStore.currentUserData!)
+                    followingStore.deleteFollowing(user: user)
                 } else {
-                    followingStore.addFollowing(user: user, currentUser: loginSignupStore.currentUserData!)
+                    followingStore.addFollowing(user: user)
                 }
             } label: {
                 if buttonToggle {
@@ -49,23 +49,12 @@ struct MotivatorsView : View {
             }
         }
         .onAppear {
-            // loginSignupStore.currentUserDataInput()
+            loginSignupStore.currentUserDataInput()
             followingStore.fetchFollowing()
-            checkFollwing()
+            self.buttonToggle = followingStore.checkFollwing(user: user)
         }
         .frame(width: 80, height: 110)
         
-    }
-    
-    
-    // 현재 팔로우를 하고 있는지 아닌지 체크해서 buttonToggle을 바꿈
-    // 근데 바로 안뜨고 화면 전환해야 적용됨
-    func checkFollwing() {
-        for following in followingStore.followings {
-            if following.id == user.id {
-                buttonToggle = false
-            }
-        }
     }
 }
 

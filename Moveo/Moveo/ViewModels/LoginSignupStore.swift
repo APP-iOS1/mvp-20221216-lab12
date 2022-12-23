@@ -183,7 +183,7 @@ class LoginSignupStore: ObservableObject {
     }
     
     // TODO: - 로그인 시 한번만 해줘도 될 것 같음 / 유저들의 정보를 users에 넣어줌
-    func fetchUser() {
+    func fetchUser() async {
         Firestore.firestore().collection("users")
             .getDocuments { (snapshot, error) in
                 self.users.removeAll()
@@ -207,17 +207,36 @@ class LoginSignupStore: ObservableObject {
                     }
                 }
             }
-        self.fetchUserExceptMe()
     }
     
     // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
     func currentUserDataInput() {
         let uid: String = currentUser?.uid ?? ""
-        
-        if !users.isEmpty {
-            let myUser: User = users.filter{ $0.id == uid }[0]
-            currentUserData = myUser
-        }
+        Firestore.firestore().collection("users")
+            .getDocuments { (snapshot, error) in
+                self.users.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                        
+                        let docData = document.data()
+                        // 있는지를 따져서 있으면 String으로 만들어줘, 없으면 ""로 만들자
+                        let id: String = docData["id"] as? String ?? ""
+                        let name: String = docData["name"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let email: String = docData["email"] as? String ?? ""
+                        let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
+                        let category : [String] = docData["category"] as? [String] ?? []
+                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
+                        let description : String = docData["description"] as? String ?? ""
+                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
+                        
+                        if user.id == self.currentUser?.uid {
+                            self.currentUserData = user
+                        }
+                    }
+                }
+            }
     }
     
     // 북마크한 게시물들을 UserStore에 올리기, 삭제하기
@@ -244,18 +263,32 @@ class LoginSignupStore: ObservableObject {
         }
     }
     // userExceptMe 배열을 패치해주는 함수
-    func fetchUserExceptMe() {
-        self.usersExceptMe = []
-        if !(self.users.isEmpty) {
-            print("if")
-            for user in self.users {
-                print("for")
-                if user.id != self.currentUser?.uid {
-                    print("if")
-                    usersExceptMe.append(user)
+    func fetchUsersExceptMe() {
+        Firestore.firestore().collection("users")
+            .getDocuments { (snapshot, error) in
+                self.users.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                        
+                        let docData = document.data()
+                        // 있는지를 따져서 있으면 String으로 만들어줘, 없으면 ""로 만들자
+                        let id: String = docData["id"] as? String ?? ""
+                        let name: String = docData["name"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let email: String = docData["email"] as? String ?? ""
+                        let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
+                        let category : [String] = docData["category"] as? [String] ?? []
+                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
+                        let description : String = docData["description"] as? String ?? ""
+                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
+                        
+                        if user.id != self.currentUser?.uid {
+                            self.usersExceptMe.append(user)
+                        }
+                    }
                 }
             }
-        }
     }
 
 }
