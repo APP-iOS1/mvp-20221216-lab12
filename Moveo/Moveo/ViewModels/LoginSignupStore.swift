@@ -54,6 +54,7 @@ class LoginSignupStore: ObservableObject {
     // TODO: - 앱을 실행시킬 때 초기화로 현재유저값을 받아와도 될 것 같음
     init() {
         currentUser = Auth.auth().currentUser
+        
 //
 //        if let userUid: String = currentUser?.uid {
 //           currentUserDataInput(uid: userUid)
@@ -183,7 +184,7 @@ class LoginSignupStore: ObservableObject {
     }
     
     // TODO: - 로그인 시 한번만 해줘도 될 것 같음 / 유저들의 정보를 users에 넣어줌
-    func fetchUser() async {
+    func fetchUser(completion: @escaping()->()) {
         Firestore.firestore().collection("users")
             .getDocuments { (snapshot, error) in
                 self.users.removeAll()
@@ -206,6 +207,7 @@ class LoginSignupStore: ObservableObject {
                         self.users.append(user)
                     }
                 }
+                completion()
             }
     }
     
@@ -261,34 +263,6 @@ class LoginSignupStore: ObservableObject {
             let otherUser: User = users.filter{ $0.id == writerUid }[0]
             self.postUserData = otherUser
         }
-    }
-    // userExceptMe 배열을 패치해주는 함수
-    func fetchUsersExceptMe() {
-        Firestore.firestore().collection("users")
-            .getDocuments { (snapshot, error) in
-                self.users.removeAll()
-                
-                if let snapshot {
-                    for document in snapshot.documents {
-                        
-                        let docData = document.data()
-                        // 있는지를 따져서 있으면 String으로 만들어줘, 없으면 ""로 만들자
-                        let id: String = docData["id"] as? String ?? ""
-                        let name: String = docData["name"] as? String ?? ""
-                        let nickName: String = docData["nickName"] as? String ?? ""
-                        let email: String = docData["email"] as? String ?? ""
-                        let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
-                        let category : [String] = docData["category"] as? [String] ?? []
-                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
-                        let description : String = docData["description"] as? String ?? ""
-                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
-                        
-                        if user.id != self.currentUser?.uid {
-                            self.usersExceptMe.append(user)
-                        }
-                    }
-                }
-            }
     }
 
 }

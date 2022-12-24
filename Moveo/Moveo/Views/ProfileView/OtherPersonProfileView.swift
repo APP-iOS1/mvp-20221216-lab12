@@ -105,7 +105,7 @@ struct OtherPersonProfileView: View {
         .navigationTitle(loginSignupStore.postUserData?.nickName ?? "")
         .task{
             postStore.fetchPosts()
-            await loginSignupStore.fetchUser()
+//            await loginSignupStore.fetchUser()
             followingStore.fetchFollowing()
             followingStore.fetchFollower()
             fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")

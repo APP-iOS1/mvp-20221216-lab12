@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+
 // TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct ProfileView: View {
     @StateObject var loginSignupStore: LoginSignupStore = LoginSignupStore()
@@ -198,8 +199,20 @@ struct ProfileView: View {
         }
         .task {
             postStore.fetchPosts()
-            loginSignupStore.fetchUser()
-            loginSignupStore.fetchUsersExceptMe()
+            loginSignupStore.fetchUser {
+                dump(loginSignupStore.users)
+                print("--------------------")
+                for user in loginSignupStore.users {
+                    if user.id != loginSignupStore.currentUser?.uid {
+                        loginSignupStore.usersExceptMe.append(user)
+                    }
+                }
+                dump(loginSignupStore.usersExceptMe)
+            }
+//            loginSignupStore.fetchUsersExceptMe {
+//                print("herere")
+//                dump(loginSignupStore.usersExceptMe)
+//            }
             makeBookMarkedPosts()
             fetchMyPosts(category:loginSignupStore.currentUserData?.category[0] ?? "")
             loginSignupStore.currentUserDataInput()
